@@ -5,16 +5,9 @@ import { columns } from '@/utils/tableColumns/projectsColumns'
 
 usePageStore().pageData.title = 'Projects'
 
-const projects = ref<Projects | null>()
-
-const getProjects = async () => {
-  const { data, error, status } = await projectsQuery
-  if (error) {
-    useErrorStore().setError({ error, customCode: status })
-  }
-
-  projects.value = data
-}
+const projectsLoader = useProjectsStore()
+const { projects } = storeToRefs(projectsLoader)
+const { getProjects } = projectsLoader
 
 await getProjects()
 </script>
